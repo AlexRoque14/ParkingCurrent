@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="509.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.Controller">
+   <children>
+      <ImageView fitHeight="346.0" fitWidth="602.0" layoutX="28.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cemento.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="346.0" fitWidth="602.0" layoutX="28.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cemento.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="346.0" fitWidth="602.0" layoutX="28.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cemento.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="163.0" fitWidth="48.0" layoutX="537.0" layoutY="272.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/signal_down.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="346.0" fitWidth="602.0" layoutX="28.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cemento.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="194.0" fitWidth="269.0" layoutX="269.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/parking2.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="194.0" fitWidth="269.0" layoutX="29.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/parking2.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="211.0" fitWidth="345.0" layoutX="268.0" layoutY="231.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/parking.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="211.0" fitWidth="428.0" layoutX="29.0" layoutY="231.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/parking.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="463.0" layoutY="464.0" mnemonicParsing="false" onMouseClicked="#initializeComponents" prefHeight="25.0" prefWidth="68.0" text="Iniciar" />
+      <Rectangle fx:id="E1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="77.0" layoutY="361.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="123.0" layoutY="361.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="173.0" layoutY="361.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="226.0" layoutY="361.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="123.0" layoutY="245.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E7" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="173.0" layoutY="245.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="226.0" layoutY="244.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E9" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="70.0" layoutY="120.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="70.0" layoutY="244.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E10" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="123.0" layoutY="120.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="309.0" layoutY="361.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="362.0" layoutY="361.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E13" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="414.0" layoutY="361.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E14" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="467.0" layoutY="361.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E16" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="362.0" layoutY="244.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E17" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="414.0" layoutY="245.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E18" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="467.0" layoutY="245.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E19" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="307.0" layoutY="120.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E15" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="312.0" layoutY="244.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <Rectangle fx:id="E20" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="413.0" layoutY="120.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+      <ImageView fitHeight="42.0" fitWidth="200.0" layoutX="29.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/signal_rigth.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="42.0" fitWidth="184.0" layoutX="187.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/signal_rigth.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="42.0" fitWidth="224.0" layoutX="346.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/signal_rigth.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="170.0" fitWidth="61.0" layoutX="537.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/signal_down.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="163.0" fitWidth="54.0" layoutX="579.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/señal_up.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="163.0" fitWidth="54.0" layoutX="579.0" layoutY="272.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/señal_up.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="stop" layoutX="545.0" layoutY="464.0" mnemonicParsing="false" onMouseClicked="#btnStop" prefHeight="25.0" prefWidth="82.0" text="Detener" />
+      <ImageView fx:id="img_go" fitHeight="42.0" fitWidth="43.0" layoutX="479.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../images/go.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img_stop" fitHeight="42.0" fitWidth="43.0" layoutX="485.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../images/stop.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

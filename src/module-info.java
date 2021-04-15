@@ -3,4 +3,6 @@ module Parking {
     requires javafx.fxml;
 
     opens sample;
+    opens sample.Controller;
+    opens images;
 }
