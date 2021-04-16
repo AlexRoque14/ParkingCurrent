@@ -150,7 +150,7 @@ public class Parking extends Observable implements  Runnable {
                     break;
             }
 
-            /*** Thread sleep for pauses***/
+            /*** Thread sleep for pauses ***/
             try {
                 Thread.sleep(ThreadLocalRandom.current().nextLong(9000) + 200);
             }catch (InterruptedException e){
