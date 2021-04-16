@@ -26,8 +26,9 @@ public class Parking extends Observable implements  Runnable {
     Controller cont ;
 
     /*** Initialize Semaphores ***/
-    Semaphore entrada_parking = new Semaphore(0);
+    Semaphore entrada_parking = new Semaphore(1);
     Semaphore salida_parking = new Semaphore(0);
+    Semaphore door = new Semaphore(0);
 
 
     /*** Constructors ***/
@@ -35,12 +36,10 @@ public class Parking extends Observable implements  Runnable {
 
     }
 
-
     public Parking(char id , Observer objeto) {
         this.id = id;
         addObserver(objeto);
     }
-
 
     /*** Initialize methods ***/
     public void initializeParking(){
@@ -74,7 +73,7 @@ public class Parking extends Observable implements  Runnable {
                             this.notifyObservers("STOP");
                             enter = false;
                         }else{
-                            entrada_parking.release();          //libera la entrada
+                            entrada_parking.acquire();          //libera la entrada
                             if(espacios_disponibles == 0){
                                 System.out.println("No hay espacios disponibles.");
                             }else{
@@ -93,10 +92,9 @@ public class Parking extends Observable implements  Runnable {
                                         estacionados = true;
                                         verbose = false;
                                         System.out.println("Espacios: " + espacios_disponibles);
-                                        entrada_parking.acquire();  //bloquea la entrada
-                                        noti = String.valueOf(pos);
+                                        entrada_parking.release();  //bloquea la entrada
                                         this.setChanged();
-                                        this.notifyObservers(noti);
+                                        this.notifyObservers(String.valueOf(pos));
                                         break;
                                     }
                                 }while(verbose);
@@ -115,14 +113,15 @@ public class Parking extends Observable implements  Runnable {
                             this.notifyObservers("GO");
                             exit = false;
                         }else{
-                            salida_parking.release();       //libera la salida
-                            exit = true;
-                            verbose = true;
-                            if(estacionados){
+                            if(estacionados && espacios_disponibles < 20){
+                                salida_parking.release();       //libera la salida
+                                exit = true;
+                                verbose = true;
                                 int pos = 0;
                                 System.out.println("\n\t ***  Auto saliendo del estacionamiento... ***");
                                 this.setChanged();
                                 this.notifyObservers("STOP");
+
                                 do{
                                     pos = (int)(Math.random()*19 + 1);
                                     if(espacios_estacionamiento[pos] == 1){
@@ -131,28 +130,24 @@ public class Parking extends Observable implements  Runnable {
                                         espacios_disponibles += 1;
                                         System.out.println("\t Espacios: " + espacios_disponibles);
                                         salida_parking.acquire();            //bloquea la salida
-                                        exit = false;
                                         verbose = false;
-
                                         int aux = pos + 50;                  //Modifico la posicion para que vaya al default
-                                        noti = String.valueOf(aux);
                                         this.setChanged();
-                                        this.notifyObservers(noti);
+                                        this.notifyObservers(String.valueOf(aux));
                                     }
                                 }while(verbose);
-                            }else{
                                 exit = false;
                             }
+                            exit = false;
                         }
                     }catch (Exception e){
                         e.printStackTrace();
                     }
                     break;
             }
-
             /*** Thread sleep for pauses ***/
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextLong(9000) + 200);
+                Thread.sleep(ThreadLocalRandom.current().nextLong(5000) + 200);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
