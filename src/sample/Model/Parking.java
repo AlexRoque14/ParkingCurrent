@@ -1,5 +1,6 @@
 package sample.Model;
 
+import javafx.scene.image.Image;
 import sample.Controller.Controller;
 
 import java.util.Observable;
@@ -20,10 +21,10 @@ public class Parking extends Observable implements  Runnable {
     public static boolean estacionados = false;
     public static boolean verbose = true;
     private char id;
-    private String noti;
 
     /*** Instance classes ***/
     Controller cont ;
+    Car car;
 
     /*** Initialize Semaphores ***/
     Semaphore entrada_parking = new Semaphore(1);
@@ -41,16 +42,15 @@ public class Parking extends Observable implements  Runnable {
         addObserver(objeto);
     }
 
+
     /*** Initialize methods ***/
     public void initializeParking(){
-
         System.out.println("Inicializando estacionamiento");
         this.espacios_estacionamiento = new int[espacios_disponibles];
         for (int i = 0; i < espacios_disponibles; i++) {
             espacios_estacionamiento[i] = 0;           //0 = libre , 1 = ocupado
         }
     }
-
 
     public void viewEspaces(){
         System.out.println("Espacios disponibles");
@@ -111,7 +111,6 @@ public class Parking extends Observable implements  Runnable {
                             System.out.println("\n\tEsperando autos que estan entrando...");
                             this.setChanged();
                             this.notifyObservers("GO");
-                            exit = false;
                         }else{
                             if(estacionados && espacios_disponibles < 20){
                                 salida_parking.release();       //libera la salida
@@ -138,8 +137,8 @@ public class Parking extends Observable implements  Runnable {
                                 }while(verbose);
                                 exit = false;
                             }
-                            exit = false;
                         }
+                        exit = false;
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -147,7 +146,7 @@ public class Parking extends Observable implements  Runnable {
             }
             /*** Thread sleep for pauses ***/
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextLong(5000) + 200);
+                Thread.sleep(ThreadLocalRandom.current().nextLong(6000) + 200);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }

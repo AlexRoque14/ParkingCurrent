@@ -1,37 +1,103 @@
 package sample.Model;
 
+import javafx.animation.TranslateTransition;
+import javafx.geometry.Bounds;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Translate;
+import javafx.util.Duration;
 import sample.Controller.Controller;
+import sample.Main;
 
 public class Car {
 
     /*** Variables  ***/
-    Rectangle rect = new Rectangle();
-    Rectangle id;
-    String nombreImage;
+    private  int x;
+    private int y;
+    private int y_mov;
+    private String nombreImage;
+    private String name;
+
+    /*** Variables JavaFX ***/
+    ImageView imgC1;
+    ImageView imgC2;
+    Circle c;
 
     /*** Constructor ***/
-
-    public Car (Rectangle id , String nombre){
+    public Car ( String nombre, int x, int y){
         this.nombreImage = nombre;
-        this.id = id;
+        this.x = x;
+        this.y= y;
     }
 
 
-    /*** Methods to paint***/
+    /*** Methods to paint
     public void pintar(GraphicsContext graficos){
-        graficos.drawImage(Controller.imagenes.get(nombreImage), 180 , 150);
-        id.setStroke(Color.BLACK);
-        id.setFill(Color.RED);
+        graficos.drawImage(Controller.imagenes.get(nombreImage),x,y);
     }
+    ***/
 
     /*** Methods to unpaint ***/
     public void despintar(GraphicsContext graficos){
-        graficos.drawImage(Controller.imagenes.get(nombreImage), 180 , 150);
+        graficos.clearRect(x,y,Controller.imagenes.get(nombreImage).getWidth(),Controller.imagenes.get(nombreImage).getHeight());
+        graficos.restore();
     }
 
 
+    /*** Move cars to exit ***/
+    public void mover() {
+        Parking.exit = true;
+        if(nombreImage.equals("car1")){
+            imgC1 = new ImageView("images/ce.jpeg");
+        }else{
+            imgC1 = new ImageView("images/ce2.jpeg");
+        }
 
+        imgC1.setX(590);
+        imgC1.setY(411);
+        Main.root.getChildren().add(imgC1);
+
+        TranslateTransition tt = new TranslateTransition();
+        tt.setDuration(Duration.seconds(4));
+        tt.setNode(imgC1);
+        tt.setToY(-450);
+        tt.play();
+
+        tt.setOnFinished((e) -> {
+            imgC1.setVisible(false);
+            Parking.exit = false;
+        });
+    }
+
+    /*** Move cars to enter parking and paint position ***/
+    public void moverEntrada(GraphicsContext graficos){
+        Parking.enter = true;
+        if(nombreImage.equals("car1")){
+            imgC2 = new ImageView("images/ARE.jpeg");
+        }else{
+            imgC2 = new ImageView("images/AZE.jpeg");
+        }
+
+        imgC2.setX(37);
+        imgC2.setY(36);
+        Main.root.getChildren().add(imgC2);
+
+        TranslateTransition tt = new TranslateTransition();
+        tt.setDuration(Duration.seconds(4));
+        tt.setNode(imgC2);
+        tt.setToX(400);
+        tt.play();
+
+        tt.setOnFinished((e) -> {
+            imgC2.setVisible(false);
+            graficos.drawImage(Controller.imagenes.get(nombreImage),x,y);
+            Parking.enter = false;
+        });
+    }
 }
+
+

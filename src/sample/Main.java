@@ -4,17 +4,19 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sample.Controller.Controller;
 
 public class Main extends Application {
 
+    public static AnchorPane root;
+    public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("View/sample.fxml"));
+        root = FXMLLoader.load(getClass().getResource("View/sample.fxml"));
         primaryStage.setTitle("Parking");
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

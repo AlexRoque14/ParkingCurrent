@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -29,81 +30,16 @@ public class Controller implements Observer {
     public static ObservableList<Car> data_exit = FXCollections.observableArrayList();
     public static ArrayList<Car> list_exit = new ArrayList<>(data_exit);
 
-    private Random random =  new Random(System.currentTimeMillis());
 
     /***Java Fx ***/
     private GraphicsContext graficos;
-    private Rectangle rect;
     public static AnimationTimer animation;
-    Timeline timer;
 
     /***Instances of classes ***/
     public Car car;
     public Parking park = new Parking();
 
     /***Instance JavaFX controls***/
-    @FXML
-    private Button stop;
-
-    @FXML
-    private Rectangle E1;
-
-    @FXML
-    private Rectangle E2;
-
-    @FXML
-    private Rectangle E3;
-
-    @FXML
-    private Rectangle E4;
-
-    @FXML
-    private Rectangle E6;
-
-    @FXML
-    private Rectangle E7;
-
-    @FXML
-    private Rectangle E8;
-
-    @FXML
-    private Rectangle E9;
-
-    @FXML
-    private Rectangle E5;
-
-    @FXML
-    private Rectangle E10;
-
-    @FXML
-    private Rectangle E11;
-
-    @FXML
-    private Rectangle E12;
-
-    @FXML
-    private Rectangle E13;
-
-    @FXML
-    private Rectangle E14;
-
-    @FXML
-    private Rectangle E16;
-
-    @FXML
-    private Rectangle E17;
-
-    @FXML
-    private Rectangle E18;
-
-    @FXML
-    private Rectangle E19;
-
-    @FXML
-    private Rectangle E15;
-
-    @FXML
-    private Rectangle E20;
 
     @FXML
     private ImageView img_go;
@@ -112,7 +48,10 @@ public class Controller implements Observer {
     private ImageView img_stop;
 
     @FXML
-    private Canvas lienzo;
+    public Canvas lienzo;
+
+    @FXML
+    private ImageView rct;
 
 
     /*** Btn to finalize***/
@@ -139,8 +78,8 @@ public class Controller implements Observer {
 
     /*** Upload images ***/
     public void uploadImages(){
-        imagenes.put("car1",   new Image("images/go.png"));
-        imagenes.put("car2", new Image("images/stop.png"));
+        imagenes.put("car1",   new Image("images/carr.jpeg"));
+        imagenes.put("car2",   new Image("images/cars.jpeg"));
     }
 
     /*** Methods ***/
@@ -149,7 +88,7 @@ public class Controller implements Observer {
         park.initializeParking();
 
         /*** Launch threads ***/
-        new Thread(new Parking('1', Controller.this)).start();     //1 indica que es un auto entrando
+        new Thread(new Parking('1', Controller.this)).start();
         new Thread(new Parking('2', Controller.this)).start();
 
         /***Launch animation to paint ***/
@@ -167,13 +106,12 @@ public class Controller implements Observer {
         }
     }
 
-
     /*** Update the components ***/
     public void cicloJuego(){
         animation = new AnimationTimer() {
             @Override
             public void handle(long actually_time) {
-                pintar();
+                //pintar();
                 despintar();
             }
         };
@@ -182,198 +120,220 @@ public class Controller implements Observer {
 
 
     /*** Paint the cars parked ***/
-    public void pintar(){
+    public void pintar()  {
         Iterator iter = listPosicion.iterator();
         while(iter.hasNext()){
             car = (Car) iter.next();
-            car.pintar(graficos);
+            car.moverEntrada(graficos);
             iter.remove();
         }
     }
 
     /*** Unpaint the cars parked ***/
-    public void despintar(){
+    public void despintar()  {
         Iterator iter = list_exit.iterator();
         while(iter.hasNext()){
             car = (Car) iter.next();
             car.despintar(graficos);
+            car.mover();
             iter.remove();
         }
     }
 
+
     /*** Method update (Observer) ***/
     @Override
     public void update(Observable o, Object arg) {
-        Car car;
         switch ((String) arg){
             case "STOP":
                 setStopGo(1);
                 break;
             case "GO":
                 setStopGo(0);
+
                 break;
             case "1":
-                car = new Car(E1 , "car1" );
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car1", 49, 288);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "2":
-                car = new Car(E2 , "car2");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car2", 105, 288);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "3":
-                car = new Car(E3 , "car1");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car("car1", 150, 288);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "4":
-                car = new Car(E4 , "car2");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car2", 201, 288);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "5":
-                car = new Car(E5 , "car1");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car1", 49, 169);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "6":
-                car = new Car(E6 , "car2");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car2", 100, 169);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "7":
-                car = new Car(E7 , "car1");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car1", 150, 169);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "8":
-                car = new Car(E8 , "car2");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car2", 200, 169);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "9":
-                car = new Car(E9 , "car1");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car1", 48, 50);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "10":
-                car = new Car(E10, "car2");
-                Platform.runLater(() -> listPosicion.add(car));
+                 car = new Car( "car2", 100, 50);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "11":
-                car = new Car(E11 , "car1");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car1",289,300);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "12":
-                car = new Car(E12 ,"car2");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car("car2",331,300);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "13":
-                car = new Car(E13 , "car1");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car1",390,300);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "14":
-                car = new Car(E14, "car2");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car2",449,300);  //subi el eje y
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "15":
-                car = new Car(E15 , "car1");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car1",295,165);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "16":
-                car = new Car(E16 , "car2");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car2",348,165);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "17":
-                car = new Car(E17 , "car1");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car1",395,165);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "18":
-                car = new Car(E18 , "car2");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car("car2",446,165);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "19":
-                car = new Car(E19 , "car1");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car ("car1",294,48);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             case "20":
-                car = new Car(E20 , "car2");
-                Platform.runLater(() -> listPosicion.add(car));
+                car = new Car( "car2",350,49);
+                //Platform.runLater(() -> listPosicion.add(car));
+                Platform.runLater(() -> car.moverEntrada(graficos));
                 break;
             default:
                 int x = Integer.parseInt((String) arg);
                 int indice = x - 50;
                 switch (String.valueOf(indice)){
                     case "1":
-                        car = new Car(E1 , "car1");
+                        car = new Car("car1",49, 288);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "2":
-                        car = new Car(E2 , "car2");
+                        car = new Car( "car2",105,288);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "3":
-                        car = new Car(E3 , "car1");
+                        car = new Car( "car1",150,288);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "4":
-                        car = new Car(E4 , "car2");
+                        car = new Car( "car2",201,288);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "5":
-                        car = new Car(E5 , "car1");
+                        car = new Car( "car1",49,169);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "6":
-                        car = new Car(E6 , "car2");
+                        car = new Car( "car2",100,169);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "7":
-                        car = new Car(E7 , "car1");
+                        car = new Car( "car1",150,169);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "8":
-                        car = new Car(E8 , "car2");
+                        car = new Car( "car2",200,169);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "9":
-                        car = new Car(E9 , "car1");
+                        car = new Car( "car1",48,50);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "10":
-                        car = new Car(E10 , "car2");
+                        car = new Car( "car2",100,50);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "11":
-                        car = new Car(E11 , "car1");
+                        car = new Car( "car1",298,300);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "12":
-                        car = new Car(E12 , "car2");
+                        car = new Car( "car2",331,300);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "13":
-                        car = new Car(E13 , "car1");
+                        car = new Car( "car1",390,300);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "14":
-                        car = new Car(E14, "car2");
+                        car = new Car( "car2",449,300);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "15":
-                        car = new Car(E15 , "car1");
+                        car = new Car( "car1",295,165);
+
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "16":
-                        car = new Car(E16, "car2");
+                        car = new Car( "car2",398,165);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "17":
-                        car = new Car(E17, "car1");
+                        car = new Car( "car1",395,165);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "18":
-                        car = new Car(E18 , "car2");
+                        car = new Car( "car2",446,165);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                     case "19":
-                        car = new Car(E19 , "car1");
+                        car = new Car( "car1",294,49);
                         Platform.runLater(() -> list_exit.add(car));
-                        break;
                     case "20":
-                        car = new Car(E20 , "car2");
+                        car = new Car( "car2",350,49);
                         Platform.runLater(() -> list_exit.add(car));
                         break;
                 }
@@ -381,7 +341,7 @@ public class Controller implements Observer {
 
         /*** Thread sleep for pauses***/
         try {
-            Thread.sleep(ThreadLocalRandom.current().nextLong(5000) + 200);
+            Thread.sleep(ThreadLocalRandom.current().nextLong(6000) + 200);
         }catch (InterruptedException e){
             e.printStackTrace();
         }
