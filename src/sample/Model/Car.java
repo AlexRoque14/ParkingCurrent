@@ -35,48 +35,53 @@ public class Car {
     }
 
 
-    /*** Methods to paint
+    /*** Methods to paint ***/
     public void pintar(GraphicsContext graficos){
         graficos.drawImage(Controller.imagenes.get(nombreImage),x,y);
     }
-    ***/
 
-    /*** Methods to unpaint
-    public void despintar(GraphicsContext graficos){
+    /*** Methods to unpaint ***/
+    public void  despintar(GraphicsContext graficos){
         graficos.clearRect(x,y,Controller.imagenes.get(nombreImage).getWidth(),Controller.imagenes.get(nombreImage).getHeight());
-        graficos.restore();
     }
-     ***/
+
 
     /*** Move cars to exit ***/
-    public void mover(GraphicsContext graficos) {
-        Parking.exit = true;
+    public void mover(GraphicsContext graficos){
         graficos.clearRect(x,y,Controller.imagenes.get(nombreImage).getWidth(),Controller.imagenes.get(nombreImage).getHeight());
-
+        Parking.exit = true;
         if(nombreImage.equals("car1")){
             imgC1 = new ImageView("images/ce.jpeg");
         }else{
             imgC1 = new ImageView("images/ce2.jpeg");
         }
 
-        imgC1.setX(590);
-        imgC1.setY(411);
-        Main.root.getChildren().add(imgC1);
-
         TranslateTransition tt = new TranslateTransition();
-        tt.setDuration(Duration.seconds(3));
-        tt.setNode(imgC1);
-        tt.setToY(-450);
-        tt.play();
 
-        tt.setOnFinished((e) -> {
+        if(Parking.enter){
             imgC1.setVisible(false);
-            Parking.exit = false;
-        });
+            tt.pause();
+        }else{
+            imgC1.setX(590);
+            imgC1.setY(411);
+            Main.root.getChildren().add(imgC1);
+            tt.setDuration(Duration.seconds(1.5));
+            tt.setNode(imgC1);
+            tt.setToY(-450);
+            tt.play();
+
+            tt.setOnFinished((e) -> {
+                imgC1.setVisible(false);
+                Parking.exit = false;
+            });
+        }
+
+
     }
 
     /*** Move cars to enter parking and paint position ***/
     public void moverEntrada(GraphicsContext graficos){
+
         Parking.enter = true;
         if(nombreImage.equals("car1")){
             imgC2 = new ImageView("images/ARE.jpeg");
@@ -84,21 +89,28 @@ public class Car {
             imgC2 = new ImageView("images/AZE.jpeg");
         }
 
-        imgC2.setX(37);
-        imgC2.setY(36);
-        Main.root.getChildren().add(imgC2);
-
         TranslateTransition tt = new TranslateTransition();
-        tt.setDuration(Duration.seconds(3));
-        tt.setNode(imgC2);
-        tt.setToX(400);
-        tt.play();
 
-        tt.setOnFinished((e) -> {
+        if(Parking.exit){
+            tt.pause();
             imgC2.setVisible(false);
-            graficos.drawImage(Controller.imagenes.get(nombreImage),x,y);
-            Parking.enter = false;
-        });
+        }else{
+            imgC2.setX(37);
+            imgC2.setY(36);
+            Main.root.getChildren().add(imgC2);
+            tt.setDuration(Duration.seconds(1));
+            tt.setNode(imgC2);
+            tt.setToX(400);
+            tt.play();
+
+            tt.setOnFinished((e) -> {
+                imgC2.setVisible(false);
+                graficos.drawImage(Controller.imagenes.get(nombreImage),x,y);
+                Parking.enter = false;
+            });
+        }
+
+
     }
 }
 

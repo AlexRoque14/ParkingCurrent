@@ -22,26 +22,18 @@ public class Parking extends Observable implements  Runnable {
     public static boolean verbose = true;
     private char id;
 
-    /*** Instance classes ***/
-    Controller cont ;
-    Car car;
-
     /*** Initialize Semaphores ***/
     Semaphore entrada_parking = new Semaphore(1);
     Semaphore salida_parking = new Semaphore(0);
-    Semaphore door = new Semaphore(0);
-
+    Semaphore door = new Semaphore(1);
 
     /*** Constructors ***/
-    public Parking(){
-
-    }
+    public Parking(){ }
 
     public Parking(char id , Observer objeto) {
         this.id = id;
         addObserver(objeto);
     }
-
 
     /*** Initialize methods ***/
     public void initializeParking(){
@@ -59,18 +51,14 @@ public class Parking extends Observable implements  Runnable {
         }
     }
 
-
     /*** Method run (Observable) ***/
     @Override
     public void run() {
-        while(status){
             switch (id){
                 case '1':
                     try{
                         if(exit){
                             System.out.println("\nEsperando auto que esta saliendo...");
-                            this.setChanged();
-                            this.notifyObservers("STOP");
                             enter = false;
                         }else{
                             entrada_parking.acquire();          //libera la entrada
@@ -97,12 +85,12 @@ public class Parking extends Observable implements  Runnable {
                                         entrada_parking.release();  //bloquea la entrada
                                         this.setChanged();
                                         this.notifyObservers(String.valueOf(pos));
-                                        break;
                                     }
                                 }while(verbose);
                                 enter = false;
                             }
                         }
+
                     }catch (InterruptedException e){
                         e.printStackTrace();
                     }
@@ -111,8 +99,7 @@ public class Parking extends Observable implements  Runnable {
                     try {
                         if(enter){
                             System.out.println("\n\tEsperando autos que estan entrando...");
-                            this.setChanged();
-                            this.notifyObservers("GO");
+                            exit = false;
                         }else{
                             if(estacionados && espacios_disponibles < 20){
                                 salida_parking.release();       //libera la salida
@@ -138,8 +125,9 @@ public class Parking extends Observable implements  Runnable {
                                 }while(verbose);
                                 exit = false;
                             }
+                            exit = false;
                         }
-                        exit = false;
+
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -147,11 +135,10 @@ public class Parking extends Observable implements  Runnable {
             }
             /*** Thread sleep for pauses ***/
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextLong(5000) + 200);
+                Thread.sleep(ThreadLocalRandom.current().nextLong(6000) + 200);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
-        }
     }
 }
 

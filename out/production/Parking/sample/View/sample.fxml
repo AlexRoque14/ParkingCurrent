@@ -96,5 +96,6 @@
          </image>
       </ImageView>
       <Canvas fx:id="lienzo" height="393.0" layoutX="29.0" layoutY="70.0" width="512.0" />
+      <ImageView fitHeight="57.0" fitWidth="43.0" layoutX="582.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
