@@ -41,16 +41,18 @@ public class Car {
     }
     ***/
 
-    /*** Methods to unpaint ***/
+    /*** Methods to unpaint
     public void despintar(GraphicsContext graficos){
         graficos.clearRect(x,y,Controller.imagenes.get(nombreImage).getWidth(),Controller.imagenes.get(nombreImage).getHeight());
         graficos.restore();
     }
-
+     ***/
 
     /*** Move cars to exit ***/
-    public void mover() {
+    public void mover(GraphicsContext graficos) {
         Parking.exit = true;
+        graficos.clearRect(x,y,Controller.imagenes.get(nombreImage).getWidth(),Controller.imagenes.get(nombreImage).getHeight());
+
         if(nombreImage.equals("car1")){
             imgC1 = new ImageView("images/ce.jpeg");
         }else{
@@ -62,7 +64,7 @@ public class Car {
         Main.root.getChildren().add(imgC1);
 
         TranslateTransition tt = new TranslateTransition();
-        tt.setDuration(Duration.seconds(4));
+        tt.setDuration(Duration.seconds(3));
         tt.setNode(imgC1);
         tt.setToY(-450);
         tt.play();
@@ -87,7 +89,7 @@ public class Car {
         Main.root.getChildren().add(imgC2);
 
         TranslateTransition tt = new TranslateTransition();
-        tt.setDuration(Duration.seconds(4));
+        tt.setDuration(Duration.seconds(3));
         tt.setNode(imgC2);
         tt.setToX(400);
         tt.play();

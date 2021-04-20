@@ -68,14 +68,16 @@ public class Parking extends Observable implements  Runnable {
                 case '1':
                     try{
                         if(exit){
-                            System.out.println("\nEsperando auto que esta saliendo.");
+                            System.out.println("\nEsperando auto que esta saliendo...");
                             this.setChanged();
                             this.notifyObservers("STOP");
                             enter = false;
                         }else{
                             entrada_parking.acquire();          //libera la entrada
-                            if(espacios_disponibles == 0){
+                            if(espacios_disponibles == 0 || espacios_disponibles < 15){
                                 System.out.println("No hay espacios disponibles.");
+                                enter = false;
+                                exit = true;
                             }else{
                                 int pos = 0;
                                 enter = true;
@@ -83,9 +85,9 @@ public class Parking extends Observable implements  Runnable {
                                 this.setChanged();
                                 this.notifyObservers("GO");
                                 do{
-                                    System.out.println("\n *** Auto entrando al estacionamiento ... ***");
                                     pos = (int)(Math.random()*19 + 1);              //Posicion aleatoria entre 1 y 20
                                     if(espacios_estacionamiento[pos] == 0){
+                                        System.out.println("\n *** Auto entrando al estacionamiento ... ***");
                                         System.out.println("Estacionando auto en el espacio: " + pos);
                                         espacios_estacionamiento[pos] = 1;
                                         espacios_disponibles -= 1;
@@ -117,13 +119,12 @@ public class Parking extends Observable implements  Runnable {
                                 exit = true;
                                 verbose = true;
                                 int pos = 0;
-                                System.out.println("\n\t ***  Auto saliendo del estacionamiento... ***");
                                 this.setChanged();
                                 this.notifyObservers("STOP");
-
                                 do{
                                     pos = (int)(Math.random()*19 + 1);
                                     if(espacios_estacionamiento[pos] == 1){
+                                        System.out.println("\n\t ***  Auto saliendo del estacionamiento... ***");
                                         System.out.println("\t El auto del lugar " + pos + " ha salido.");
                                         espacios_estacionamiento[pos] = 0;
                                         espacios_disponibles += 1;
@@ -146,7 +147,7 @@ public class Parking extends Observable implements  Runnable {
             }
             /*** Thread sleep for pauses ***/
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextLong(6000) + 200);
+                Thread.sleep(ThreadLocalRandom.current().nextLong(5000) + 200);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
